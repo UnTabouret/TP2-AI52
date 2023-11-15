@@ -123,11 +123,14 @@ def mutation(enfants):
         mutants[i,:] = enfants[i,:]
         if random_valeur > taux_mutation:
             continue
-        int_random_valeur = randint(0,enfants.shape[1]-1) #choisir aléatoirement le bit à inverser   
-        if mutants[i,int_random_valeur] == 0:
-            mutants[i,int_random_valeur] = 1
-        else:
-            mutants[i,int_random_valeur] = 0
+        
+        int_random_valeur = randint(0,enfants.shape[1]-1) #choisir aléatoirement le bit à inverser
+        mutants[i,int_random_valeur] = 1 - mutants[i,int_random_valeur]
+        
+        while np.sum(mutants[i,:]*poids) > capacite_max:
+            int_random_valeur = randint(0,enfants.shape[1]-1) #choisir aléatoirement le bit à inverser
+            mutants[i,int_random_valeur] = 1 - mutants[i,int_random_valeur]
+
     return mutants  
 
 def optimize(poids, valeur, population, pop_size, nbr_generations, capacite):
