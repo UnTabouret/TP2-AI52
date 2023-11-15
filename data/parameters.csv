@@ -1,2 +1,2 @@
 nombre_objets,capacite_max,nbr_generations,solutions_par_pop
-10,60,300,16
+10,15,100,8

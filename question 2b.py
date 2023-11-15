@@ -71,9 +71,11 @@ pop_size = (solutions_par_pop, ID_objets.shape[0])
 population_initiale = np.random.randint(2, size = pop_size)
 population_initiale = population_initiale.astype(int)
 
-while cal_fitness(poids,valeur,population_initiale,capacite_max).min() < 0:
-    population_initiale = np.random.randint(2, size = pop_size)
-    population_initiale = population_initiale.astype(int)
+
+#Corriger population initiale
+for i in range(solutions_par_pop):
+    while np.sum(population_initiale[i]*poids) > capacite_max:
+        population_initiale[i] = np.random.randint(2, size = ID_objets.shape[0])
 
 
 print(f'Taille de la population: {pop_size}')
