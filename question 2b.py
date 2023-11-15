@@ -49,17 +49,6 @@ for i in range(ID_objets.shape[0]):
 print()
 
 
-
-# Créer la population initiale
-solutions_par_pop = int(params['solutions_par_pop']) #la taille de la population 
-pop_size = (solutions_par_pop, ID_objets.shape[0])
-population_initiale = np.random.randint(2, size = pop_size)
-population_initiale = population_initiale.astype(int)
-
-print(f'Taille de la population: {pop_size}')
-print(f'Population Initiale: \n{population_initiale}')
-
-
 def cal_fitness(poids, valeur, population, capacite):
     fitness = np.empty(population.shape[0])
 
@@ -70,9 +59,26 @@ def cal_fitness(poids, valeur, population, capacite):
         if S2 <= capacite:
             fitness[i] = S1
         else:
-            fitness[i] = 0
+            fitness[i] = -1
 
     return fitness.astype(int)  
+
+
+
+# Créer la population initiale
+solutions_par_pop = int(params['solutions_par_pop']) #la taille de la population 
+pop_size = (solutions_par_pop, ID_objets.shape[0])
+population_initiale = np.random.randint(2, size = pop_size)
+population_initiale = population_initiale.astype(int)
+
+while cal_fitness(poids,valeur,population_initiale,capacite_max).min() < 0:
+    population_initiale = np.random.randint(2, size = pop_size)
+    population_initiale = population_initiale.astype(int)
+
+
+print(f'Taille de la population: {pop_size}')
+print(f'Population Initiale: \n{population_initiale}')
+
 
 def selection(fitness, nbr_parents, population):
     fitness = list(fitness)

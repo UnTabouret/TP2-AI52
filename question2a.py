@@ -70,7 +70,7 @@ def cal_fitness(poids, valeur, population, capacite):
         if S2 <= capacite:
             fitness[i] = S1
         else:
-            fitness[i] = 0
+            fitness[i] = capacite - S2
 
     return fitness.astype(int)  
 

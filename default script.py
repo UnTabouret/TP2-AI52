@@ -71,18 +71,19 @@ def croisement(parents, nbr_enfants):
     point_de_croisement = int(parents.shape[1]/2) #croisement au milieu
     taux_de_croisement = 0.8
     i = 0
+    enfants_crees = 0
 
-    while (i < nbr_enfants): #parents.shape[0]
-        indice_parent1 = i%parents.shape[0]
-        indice_parent2 = (i+1)%parents.shape[0]
+    while (enfants_crees < nbr_enfants): #
         x = rd.random()
         if x > taux_de_croisement: # probabilité de parents stériles
+            i+=1
             continue
         indice_parent1 = i%parents.shape[0]
         indice_parent2 = (i+1)%parents.shape[0]
-        enfants[i,0:point_de_croisement] = parents[indice_parent1,0:point_de_croisement]
-        enfants[i,point_de_croisement:] = parents[indice_parent2,point_de_croisement:]
+        enfants[enfants_crees,0:point_de_croisement] = parents[indice_parent1,0:point_de_croisement]
+        enfants[enfants_crees,point_de_croisement:] = parents[indice_parent2,point_de_croisement:]
         i+=1
+        enfants_crees+=1
 
     return enfants
 
