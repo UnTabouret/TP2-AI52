@@ -168,7 +168,7 @@ historique_fitness_max = [np.max(fitness) for fitness in historique_fitness]
 plt.plot(list(range(nbr_generations)), historique_fitness_moyenne, label='Valeurs moyennes')
 plt.plot(list(range(nbr_generations)), historique_fitness_max, label='Valeur maximale')
 plt.legend()
-plt.title('Evolution de la Fitness à travers les générations en Euros')
+plt.title('Evolution de la Fitness à travers les générations en Euros (2a)')
 plt.xlabel('Générations')
 plt.ylabel('Fitness')
 plt.show()

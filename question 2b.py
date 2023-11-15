@@ -100,15 +100,22 @@ def croisement(parents, nbr_enfants):
     i = 0
     enfants_crees = 0
 
-    while (enfants_crees < nbr_enfants): #
+    while (enfants_crees < nbr_enfants and i<=parents.shape[0]): #
         x = rd.random()
         if x > taux_de_croisement: # probabilité de parents stériles
             i+=1
             continue
         indice_parent1 = i%parents.shape[0]
         indice_parent2 = (i+1)%parents.shape[0]
-        enfants[enfants_crees,0:point_de_croisement] = parents[indice_parent1,0:point_de_croisement]
-        enfants[enfants_crees,point_de_croisement:] = parents[indice_parent2,point_de_croisement:]
+        nouvel_enfant = []
+        nouvel_enfant[0:point_de_croisement] = parents[indice_parent1,0:point_de_croisement]
+        nouvel_enfant[point_de_croisement:] = parents[indice_parent2,point_de_croisement:]
+
+        if np.sum(nouvel_enfant*poids > capacite_max):
+            i+=1
+            continue
+
+        enfants[enfants_crees,:] = nouvel_enfant
         i+=1
         enfants_crees+=1
 
@@ -179,7 +186,7 @@ historique_fitness_max = [np.max(fitness) for fitness in historique_fitness]
 plt.plot(list(range(nbr_generations)), historique_fitness_moyenne, label='Valeurs moyennes')
 plt.plot(list(range(nbr_generations)), historique_fitness_max, label='Valeur maximale')
 plt.legend()
-plt.title('Evolution de la Fitness à travers les générations en Euros')
+plt.title('Evolution de la Fitness à travers les générations en Euros (2b)')
 plt.xlabel('Générations')
 plt.ylabel('Fitness')
 plt.show()
