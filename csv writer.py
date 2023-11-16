@@ -13,7 +13,7 @@ import csv
 
 
 #Chemin du fichier csv
-chemin_csv = "data/pb1.csv"
+chemin_csv = "data/pb4.csv"
 
 #Chemin du fichier de paramètres
 chemin_parameters = "data/parameters.csv"

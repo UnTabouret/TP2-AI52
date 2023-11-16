@@ -14,7 +14,7 @@ import csv
 
 
 #Chemin du fichier csv
-chemin_csv = "data/pb1.csv"
+chemin_csv = "data/pb2.csv"
 
 #Chemin du fichier de paramètres
 chemin_parameters = "data/parameters.csv"
@@ -111,7 +111,7 @@ def croisement(parents, nbr_enfants):
 
     return enfants
 
-# La mutation consiste à inverser le bit
+
 def mutation(enfants):
     mutants = np.empty((enfants.shape))
     taux_mutation = 0.5
@@ -120,11 +120,11 @@ def mutation(enfants):
         mutants[i,:] = enfants[i,:]
         if random_valeur > taux_mutation:
             continue
-        int_random_valeur = randint(0,enfants.shape[1]-1) #choisir aléatoirement le bit à inverser   
-        if mutants[i,int_random_valeur] == 0:
-            mutants[i,int_random_valeur] = 1
-        else:
-            mutants[i,int_random_valeur] = 0
+        int_random_valeur = randint(0,enfants.shape[1]-1) #choisir aléatoirement l'élément à inverser
+        int_variation = rd.choice([-1,1]) #Choisir si on augmente ou diminue la valeur de l'élément
+        mutants[i,int_random_valeur] += int_variation
+        if mutants[i,int_random_valeur] < 0 : #On vérifie qu'on n'a pas généré une solution achetant une quantité négative d'actions d'un titre
+           mutants[i,int_random_valeur] = 0 
     return mutants  
 
 def optimize(prix, valeur, population, pop_size, nbr_generations, budget):
@@ -155,7 +155,7 @@ sol_opt, historique_fitness = optimize(prix, valeur, population_initiale, pop_si
 
 #affichage du résultat
 print('La solution optimale est:')
-print('objets n°', [i for i, j in enumerate(sol_opt[0]) if j!=0])
+print([str(j) + ' exemplaires de l\'action ' + str(i) for i, j in enumerate(sol_opt[0]) if j!=0])
 
 
 print(f'Avec une valeur de {np.amax(historique_fitness)} € et un prix de {np.sum(sol_opt * prix)} kg')
