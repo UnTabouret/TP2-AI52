@@ -72,6 +72,11 @@ def cal_fitness(prix, valeur, population, budget):
         else:
             fitness[i] = 0
 
+        #check for over 20% budget :
+        for j in range(population.shape[1]):
+            if(population[i][j] * prix[j] > 0.2 * budget):
+                fitness[i] = 0
+
     return fitness.astype(int)  
 
 def selection(fitness, nbr_parents, population):
